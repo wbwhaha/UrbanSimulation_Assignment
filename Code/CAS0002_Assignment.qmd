@@ -625,14 +625,14 @@ Spatial interaction models are mathematical frameworks used to estimate flows be
 ### i Unconstrained Gravity Model
 The unconstrained gravity model estimates flows between two locations $i$ and $j$ as:
 $$ T_{ij} = k \cdot \frac{O_i^\alpha D_j^\gamma}{f(c_{ij})} $$
-where:
-  - $T_{ij}:$ predicted flow from origin $i$ to destination $j$
-  - $O_i:$ origin mass (e.g., population at $i$)
-  - $D_j:$ destination mass (e.g., jobs or services at $j$)
-  - $f(c_{ij}):$ deterrence function, typically increasing with cost $c_{ij}$ (e.g., travel time or distance)
-  - $k:$ normalization constant
-  - $\alpha:$ Exponent on the origin variable — adjusts how strongly origin capacity influences flow
-  - $\gamma:$ Exponent on the destination variable — adjusts how strongly destination attractiveness influences flow
+where:  
+  - $T_{ij}:$ predicted flow from origin $i$ to destination $j$  
+  - $O_i:$ origin mass (e.g., population at $i$)  
+  - $D_j:$ destination mass (e.g., jobs or services at $j$)  
+  - $f(c_{ij}):$ deterrence function, typically increasing with cost $c_{ij}$ (e.g., travel time or distance)  
+  - $k:$ normalization constant  
+  - $\alpha:$ Exponent on the origin variable — adjusts how strongly origin capacity influences flow  
+  - $\gamma:$ Exponent on the destination variable — adjusts how strongly destination attractiveness influences flow  
 A common choice for $f(c_{ij})$ is an exponential or power function, such as:
 $$ f(c_{ij}) = c_{ij}^{\beta} \quad \text{or} \quad f(c_{ij}) = e^{-\beta c_{ij}} $$
 where $\beta>0$ is a deterrence parameter that governs sensitivity to distance.
@@ -897,7 +897,8 @@ check_basic = result_basic[1]
 ```{python}
 check_basic
 ```
-For each origin, the total estimated flow to all destinations matches exactly the total flow, which means $\sum_j T_{ij} = O_i$.
+For each origin, the total estimated flow to all destinations matches exactly the total flow, which means $\sum_j T_{ij} = O_i$.  
+  
 ## 2. Scenarios
   
 ### 2.1. Location of new supermarket

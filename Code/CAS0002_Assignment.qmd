@@ -1,7 +1,8 @@
 ---
-title: Assessment for CASA0002 – Urban Simulation 
-bibliography: bibliography_wbw.bib
-csl: harvard-cite-them-right.csl
+title: Assessment for CASA0002 – Urban Simulation
+subtitle: Network and SIM
+bibliography: ../US_wbw_bib/US_wbw.bib
+csl: ../harvard-cite-them-right.csl
 execute:
   echo: false
   freeze: true
@@ -18,8 +19,9 @@ format:
       collapsed: false
       smooth_scroll: true
   pdf:
+    code-block: true
     include-in-header:
-    
+      
       text: |
         \usepackage{microtype}
         \addtokomafont{disposition}{\rmfamily}
@@ -49,8 +51,6 @@ jupyter:
     language: python
     name: python3
 ---
-
-{{< pagebreak >}}
 
 ```{python}
 #| include: false
@@ -93,37 +93,37 @@ import matplotlib.pyplot as plt
 ## 1. Topological network  
   
 ### 1.1. Centrality measures:
-In the study of transportation networks, particularly complex systems such as the London Underground, it is essential to identify the most structurally and functionally important stations. (bloch et al, 2023) claimed that centrality measures derived from graph theory provide a rigorous framework for quantifying the relative importance of nodes (stations) within a network. This section introduces and justifies the selection of three centrality measures: *degree centrality*, *betweenness centrality*, and *closeness centrality*, to characterize and identify crucial stations in the underground network.
+In the study of transportation networks, particularly complex systems such as the London Underground, it is essential to identify the most structurally and functionally important stations. @bloch_centrality_2023 claimed that centrality measures derived from graph theory provide a rigorous framework for quantifying the relative importance of nodes (stations) within a network. This section introduces and justifies the selection of three centrality measures: *degree centrality*, *betweenness centrality*, and *closeness centrality*, to characterize and identify crucial stations in the underground network.
   
-### ① Degree Centrality
+### i Degree Centrality
 **Definition and Equation**
-Degree centrality is a fundamental measure that captures the number of direct connections a node has within the network. For an undirected graph $G=(V,E)$, where $V$ is the set of nodes and $E$ is the set of edges, the degree centrality $C_D(v)$ of a node $v ∈ V$ is defined as:
+Degree centrality is a fundamental measure that captures the number of direct connections a node has within the network. For an undirected graph $G=(V,E)$, where $V$ is the set of nodes and $E$ is the set of edges, the degree centrality $C_D(v)$ of a node $v∈V$ is defined as:
 $$ C_D(v) = \frac{\deg(v)}{N - 1} $$
-where $ \deg(v) $ denotes the degree of node $v$, and $N$ is the total number of nodes in the network. The measure is normalized by $N−1$ to facilitate comparison across networks of different sizes (Freeman, 1979). 
+where $\deg(v)$ denotes the degree of node $v$, and $N$ is the total number of nodes in the network. The measure is normalized by $N−1$ to facilitate comparison across networks of different sizes (@derrible_network_2012). 
   
 **Application in the Underground Context**
-In the context of the London Underground, degree centrality reflects the number of other stations directly accessible from a given station, either through a single train line or by transfer (Derrible, 2012). Stations with high degree centrality, such as King’s Cross St Pancras, typically serve multiple lines or act as interchange points. These stations play a key role in maintaining the local connectivity of the network.
+In the context of the London Underground, degree centrality reflects the number of other stations directly accessible from a given station, either through a single train line or by transfer @derrible_network_2012. Stations with high degree centrality, such as King’s Cross St Pancras, typically serve multiple lines or act as interchange points. These stations play a key role in maintaining the local connectivity of the network.
   
 **Importance for Network Functioning**
-According to (zhang et al, 2021), high-degree stations are vital for passenger flow and route flexibility, enabling travelers to access multiple lines without significant detours. Disruption at such nodes may significantly impact service efficiency and passenger distribution, especially during peak hours (su et al, 2023).
+According to @zhang_network_2021, high-degree stations are vital for passenger flow and route flexibility, enabling travelers to access multiple lines without significant detours. Disruption at such nodes may significantly impact service efficiency and passenger distribution, especially during peak hours (@su_simulation-based_2023).
   
-### ② Betweenness Centrality
+### ii Betweenness Centrality
 **Definition and Equation**
 Betweenness centrality quantifies the extent to which a node lies on the shortest paths between other pairs of nodes. It is formally defined as:
 $$ C_B(v) = \sum_{i \ne j \ne v} \frac{\sigma_{ij}(v)}{\sigma_{ij}} $$
-where $\sigma_{ij}$ is the total number of shortest paths between nodes $i$ and $j$, and $\sigma_{ij}(v)$ is the number of those paths that pass through node $v$(Freeman, 1977).
+where $\sigma_{ij}$ is the total number of shortest paths between nodes $i$ and $j$, and $\sigma_{ij}(v)$ is the number of those paths that pass through node $v$(@freeman_set_1977).
   
 **Application in the Underground Context**
-Betweenness centrality highlights nodes that serve as transfer corridors or bridging stations within the Underground (mussone et al, 2025). For example, stations such as Green Park or Oxford Circus often lie on the shortest routes connecting disparate parts of the network. These nodes may not have the highest degree but are essential for enabling efficient travel between many station pairs.
+Betweenness centrality highlights nodes that serve as transfer corridors or bridging stations within the Underground (@mussone_dynamic_2025). For example, stations such as Green Park or Oxford Circus often lie on the shortest routes connecting disparate parts of the network. These nodes may not have the highest degree but are essential for enabling efficient travel between many station pairs.
   
 **Importance for Network Functioning**
-(Liu et al, 2017) pinted out that nodes with high betweenness centrality represent potential bottlenecks or points of vulnerability. A failure or congestion at such stations would disrupt many origin-destination pairs, significantly affecting network-wide travel efficiency. Thus, betweenness centrality is instrumental in evaluating the resilience and structural robustness of the Underground.
+@liu_recognition_2018 pinted out that nodes with high betweenness centrality represent potential bottlenecks or points of vulnerability. A failure or congestion at such stations would disrupt many origin-destination pairs, significantly affecting network-wide travel efficiency. Thus, betweenness centrality is instrumental in evaluating the resilience and structural robustness of the Underground.
   
-### ③ Closeness Centrality
+### iii Closeness Centrality
 **Definition and Equation**
 Closeness centrality measures how near a node is to all other nodes in the network. For a node $v$, it is defined as the inverse of the average shortest path distance to all other nodes:
 $$ C_C(v) = \frac{1}{\sum_{v \ne t} d(v, t)} $$
-where $d(v,t)$ denotes the length of the shortest path from node $v$ to node $t$, and $N$ is the number of nodes in the network (Bavelas, 1950).
+where $d(v,t)$ denotes the length of the shortest path from node $v$ to node $t$, and $N$ is the number of nodes in the network (@bavelas_communication_1950).
 
 **Application in the Underground Context**
 Closeness centrality identifies stations that are centrally located in terms of travel time or distance. Stations such as Bank or Holborn are often close to a large number of other stations and can be reached from many locations with relatively few transfers.  
@@ -132,16 +132,16 @@ Closeness centrality identifies stations that are centrally located in terms of 
 Stations with high closeness centrality enable efficient access to the rest of the network and are critical for minimizing overall travel times. They are often located in geographical and topological centers of the network and serve as ideal points for dispersing or collecting traffic.  
   
 ### Synthesis and Relevance
-Together, these three centrality measures offer complementary insights into the importance of stations in the Underground:
-  - Degree centrality captures local importance and identifies hubs for immediate accessibility and transfers.
-  - Betweenness centrality identifies strategic connectors that hold the network together across routes.
-  - Closeness centrality highlights spatial efficiency, marking stations from which the network is most accessible.
-
-By applying these measures in combination, one can systematically identify stations that are structurally and operationally indispensable to the Underground’s performance and resilience. These metrics are crucial not only for understanding current usage patterns but also for planning targeted investments, maintenance priorities, and emergency response strategies.
+Together, these three centrality measures offer complementary insights into the importance of stations in the Underground:  
+   - Degree centrality captures local importance and identifies hubs for immediate accessibility and transfers.  
+   - Betweenness centrality identifies strategic connectors that hold the network together across routes.  
+   - Closeness centrality highlights spatial efficiency, marking stations from which the network is most accessible.
+  
+By applying these measures in combination, one can systematically identify stations that are structurally and operationally indispensable to the Underground’s performance and resilience. These metrics are crucial not only for understanding current usage patterns but also for planning targeted investments, maintenance priorities, and emergency response strategies (@bavelas_communication_1950).
   
 The first 10 ranked nodes for each of the 3 measures are listed below:
 ```{python}
-G_lu = pd.read_pickle('Geo_Datasets/London_tube_network_cl.pkl')
+G_lu = pd.read_pickle('../Geo_Datasets/London_tube_network_cl.pkl')
 ```
 
 ```{python}
@@ -254,21 +254,24 @@ def analyze_resilience(G, centrality_type, num_removals=10):
 ```
 
 To evaluate the structural resilience of the urban rail network, we simulate sequential node removals guided by three classical centrality measures: degree, betweenness, and closeness. After each removal, the Largest Connected Component (LCC) is recalculated to assess the resulting fragmentation. Figure `LCC Size vs. Node Removals by Centrality Measure` presents a comparative line plot of LCC sizes as a function of the number of nodes removed under each centrality-based attack strategy.
-
+  
+**Degree centrality**
 ```{python}
-analyze_resilience(G_lu_d, 'degree')
+lcc_degree = analyze_resilience(G_lu_d, 'degree')
 ```
 
 Node removals based on degree centrality cause a slow and steady decline in the size of the largest connected component (LCC), suggesting that highly connected stations are not always structurally critical. The network remains largely intact after several removals, indicating resilience to local failures.
-
+  
+**Betweenness centrality**
 ```{python}
-analyze_resilience(G_lu_b, 'betweenness')
+lcc_betweenness = analyze_resilience(G_lu_b, 'betweenness')
 ```
 
-betweenness centrality leads to a sharp drop in LCC size after the removal of key bridging nodes. The sixth removal, corresponding to `West Hampstead`, causes fragmentation, showing that betweenness is effective at identifying structural weak points.
-
+Betweenness centrality leads to a sharp drop in LCC size after the removal of key bridging nodes. The sixth removal, corresponding to `West Hampstead`, causes fragmentation, showing that betweenness is effective at identifying structural weak points.
+  
+**Closeness centrality**
 ```{python}
-analyze_resilience(G_lu_c, 'closeness')
+lcc_closeness = analyze_resilience(G_lu_c, 'closeness')
 ```
 
 Interestingly, closeness centrality shows a similar pattern, with station `Canada Water` triggering rapid decline. This overlap suggests that closeness can also capture structurally important hubs, especially when spatial and topological centrality coincide.
@@ -291,13 +294,13 @@ plt.tight_layout()
 plt.show()
 ```
 
-The results reveal that `betweenness centrality` is the most effective measure for identifying structurally critical nodes. The LCC size remains stable through the first five node removals but drops sharply between the fifth and sixth removal, from approximately 375 to 225. This indicates that betweenness-ranked nodes act as bridging stations, whose removal causes major segmentation of the network. Interestingly, `closeness centrality`, while traditionally viewed as a measure of global efficiency rather than structural vulnerability, exhibits a similarly sharp drop. This suggests that some top closeness-ranked nodes may also serve as intermodal connectors with high structural importance.
+The results reveal that `betweenness centrality` is the most effective measure for identifying structurally critical nodes. The LCC size remains stable through the first five node removals but drops sharply between the fifth and sixth removal, from approximately 375 to 227. This indicates that betweenness-ranked nodes act as bridging stations, whose removal causes major segmentation of the network. Interestingly, `closeness centrality`, while traditionally viewed as a measure of global efficiency rather than structural vulnerability, exhibits a similarly sharp drop. This suggests that some top closeness-ranked nodes may also serve as intermodal connectors with high structural importance.
 
-In contrast, `degree centrality`, which prioritizes nodes with the highest immediate connections—leads to a more gradual reduction in LCC size. The persistence of a large connected component after several degree-based removals indicates that the network topology retains a certain level of redundancy. This echoes observations by Derrible and Kennedy (2010), who noted that metro systems often embed topological resilience through alternate routes and transfer options.
+In contrast, `degree centrality`, which prioritizes nodes with the highest immediate connections—leads to a more gradual reduction in LCC size. The persistence of a large connected component after several degree-based removals indicates that the network topology retains a certain level of redundancy. This echoes observations by @derrible_complexity_2010, who noted that metro systems often embed topological resilience through alternate routes and transfer options.
 
-The sudden inflection in the betweenness and closeness curves suggests that a small subset of nodes holds disproportionate control over network connectivity. These are likely to include transfer hubs such as King’s Cross St. Pancras or Bank, which serve as bottlenecks across multiple lines. This aligns with Freeman’s (1977) foundational theory of betweenness centrality, which emphasized the strategic role of nodes occupying critical positions in the shortest paths of the network. Furthermore, network vulnerability under targeted attacks, as demonstrated in the classic work by Albert et al. (2000), is clearly visible here, especially when removals are guided by topological centrality rather than random selection. But the detailed inspection reveals that West Hampstead and Canada Water are the two stations responsible for this dramatic drop in LCC under both betweenness and closeness-based strategies. These stations function as crucial interchanges that connect multiple lines or subnetworks and their removal severs inter-line connectivity, leading to fragmentation. 
+The sudden inflection in the betweenness and closeness curves suggests that a small subset of nodes holds disproportionate control over network connectivity. These are likely to include transfer hubs such as King’s Cross St. Pancras or Bank, which serve as bottlenecks across multiple lines. This aligns with @freeman_set_1977 foundational theory of betweenness centrality, which emphasized the strategic role of nodes occupying critical positions in the shortest paths of the network. Furthermore, network vulnerability under targeted attacks, as demonstrated in the classic work by @albert_error_2000, is clearly visible here, especially when removals are guided by topological centrality rather than random selection. But the detailed inspection reveals that West Hampstead and Canada Water are the two stations responsible for this dramatic drop in LCC under both betweenness and closeness-based strategies. These stations function as crucial interchanges that connect multiple lines or subnetworks and their removal severs inter-line connectivity, leading to fragmentation. 
 
-Consistent with findings in the transportation literature, such as (Cats et al., 2015), our results confirm that betweenness centrality is particularly suited for resilience analysis in transit networks. Its ability to capture inter-line dependencies and chokepoint behavior makes it a valuable tool for identifying high-risk stations. Closeness centrality, although less consistent, may still serve as a complementary indicator in identifying spatially central yet vulnerable nodes.
+Consistent with findings in the transportation literature, such as @freeman_set_1977, our results confirm that betweenness centrality is particularly suited for resilience analysis in transit networks. Its ability to capture inter-line dependencies and chokepoint behavior makes it a valuable tool for identifying high-risk stations. Closeness centrality, although less consistent, may still serve as a complementary indicator in identifying spatially central yet vulnerable nodes.
   
 ## 2. Flows: weighted network
   
@@ -432,63 +435,43 @@ for i, row in london_OD_sum.iterrows():
 nx.set_edge_attributes(G_lu, flows, 'Flow_Sum')
 ```
 
-```{python}
-# plot the flows
-flows_values = flows.values()
-flow_color=[(i[2]['Flow_Sum']/max(flows_values)) for i in G_lu.edges(data=True)]
-flow_width=[(i[2]['Flow_Sum']/max(flows_values)*10) for i in G_lu.edges(data=True)]
-
-# plot graph
-fig, ax = plt.subplots(figsize=(12,10))
-
-#pos=nx.spring_layout(X)
-edg=nx.draw_networkx_edges(G_lu, pos,edge_color=flow_color, width=flow_width)
-
-nx.draw_networkx_nodes(G_lu,
-        pos = pos,
-        node_color= 'black',
-        node_size= 1)
-
-plt.colorbar(edg,label="Passenger Flows",orientation="horizontal", shrink=0.5)
-plt.axis("off")
-plt.title("London network Passenger Flows",fontsize=15)
-plt.show()
-```
-
-```{python}
-
-```
-
 The most important station according to each these 3 measures in the weighted network and the computing process:
-
-```{python, echo=TRUE}
+  
+Degree Centrality:
+```{python}
+#| echo: true
 deg_london_w = dict(G_lu.degree(weight='Flow_Sum'))
 
 nx.set_node_attributes(G_lu,deg_london_w,'degree_w')
 
 max_node_d = max(deg_london_w, key=deg_london_w.get)
 
-print(f"The node with the highest degree centrality is: {max_node_d}, with a value of: {deg_london_w[max_node_d]}")
+print(f"The node with the highest degree centrality is: {max_node_d},\n" 
+      f"with a value of: {deg_london_w[max_node_d]}")
 ```
-
-```{python, echo=TRUE}
+Betweenness centrality:
+```{python}
+#| echo: true
 bet_london_w=nx.betweenness_centrality(G_lu,weight='Flow_Sum',normalized=False)
 
 nx.set_node_attributes(G_lu,bet_london_w,'betweenness_w')
 
 max_node_b = max(bet_london_w, key=bet_london_w.get)
 
-print(f"The node with the highest betweenness centrality is: {max_node_b}, with a value of: {bet_london_w[max_node_b]}")
+print(f"The node with the highest betweenness centrality is: {max_node_b},\n" 
+      f"with a value of: {bet_london_w[max_node_b]}")
 ```
-
-```{python, echo=TRUE}
+Closeness centrality:
+```{python}
+#| echo: true
 clos_london_w=nx.closeness_centrality(G_lu, distance='Flow_Sum')
 
 nx.set_node_attributes(G_lu,clos_london_w,'closeness_w')
 
 max_node_c = max(clos_london_w, key=clos_london_w.get)
 
-print(f"The node with the highest closeness centrality is: {max_node_c}, with a value of: {clos_london_w[max_node_c]}")
+print(f"The node with the highest closeness centrality is: {max_node_c},\n" 
+      f"with a value of: {clos_london_w[max_node_c]}")
 ```
 
 ```{python}
@@ -514,11 +497,11 @@ destination = OD.loc['All',:].to_dict()
 london_OD_sum['population'] = london_OD_sum.station_origin.apply(lambda x: origin[x])
 ```
 
+### 2.2. Largest OD flow
 ```{python}
 london_OD_sum.sort_values('Flow_Sum',ascending=False).head(10)
 ```
 
-### 2.2. Largest OD flow
 ```{python}
 # get edge with highest number of flows
 print(f"The largest OD flow is {max(flows, key=flows.get)}")
@@ -549,6 +532,7 @@ for node in G_lu.nodes:
 ```
 
 ### 2.3. Optimal alternatives and Walking time analysis
+In order to find the nearest station, we write code to identify alternative underground stations within walking distance (1 km) of the closed "Bank and Monument" station. It uses the geodesic distance to filter nearby stations and then downloads the local pedestrian street network via OSMnx. For each candidate station, it calculates the shortest walking route using the road network and estimates walking time based on a speed of `1.2 m/s` (**based on UK Department for Transport – WebTAG guidance, Similarly, we also use this speed as the standard in the analysis of the second part.**). The results, including station name, path length, and walking time, are compiled into a sorted DataFrame, which is shown below.
 ```{python}
 from geopy.distance import geodesic
 
@@ -602,7 +586,7 @@ df_walk_alternatives = pd.DataFrame(results)
 df_walk_alternatives = df_walk_alternatives.sort_values(by='WalkTime_min')
 
 # display the DataFrame
-print(df_walk_alternatives)
+df_walk_alternatives
 ```
 
 Thus, they should go to `Canno Street` station as an alternative, whcih will take them about `5.6` minutes, and the shorest path is shown below.
@@ -629,14 +613,16 @@ ax.legend()
 plt.show()
 ```
 
+{{< pagebreak >}}
+
 ## Part II: Spatial Interaction models
   
 ## 1. Models and calibration
   
 ### 1.1. Model introduction
-Spatial interaction models are mathematical frameworks used to estimate flows between origins and destinations, factoring in both the attractiveness of destinations and the deterrent effect of distance or travel cost. Among these, urban gravity models specifically focus on predicting and analyzing the movement of people, goods, and services within urban and regional systems, applying principles similar to gravitational forces to explain spatial flows. Inspired by Newton's law of gravitation, these models assume that interaction between two locations is directly proportional to their "masses"， such as population, employment and amenities, and inversely proportional to some function of the distance or cost between them (Wilson, 1971). Here, we introduce four commonly used gravity model variants: the *unconstrained*, *origin-constrained*, *destination-constrained*, and *doubly constrained models*.
+Spatial interaction models are mathematical frameworks used to estimate flows between origins and destinations, factoring in both the attractiveness of destinations and the deterrent effect of distance or travel cost. Among these, urban gravity models specifically focus on predicting and analyzing the movement of people, goods, and services within urban and regional systems, applying principles similar to gravitational forces to explain spatial flows. Inspired by Newton's law of gravitation, these models assume that interaction between two locations is directly proportional to their "masses"， such as population, employment and amenities, and inversely proportional to some function of the distance or cost between them (@wilson_family_1971). Here, we introduce four commonly used gravity model variants: the *unconstrained*, *origin-constrained*, *destination-constrained*, and *doubly constrained models*.
   
-### ① Unconstrained Gravity Model
+### i Unconstrained Gravity Model
 The unconstrained gravity model estimates flows between two locations $i$ and $j$ as:
 $$ T_{ij} = k \cdot \frac{O_i^\alpha D_j^\gamma}{f(c_{ij})} $$
 where:
@@ -654,9 +640,9 @@ where $\beta>0$ is a deterrence parameter that governs sensitivity to distance.
 In the practicals and assignment, we choose $f(c_{ij}) = c_{ij}^{\beta}$, and cost factor is often represented by distance $d$. So,  we can get $f(c_{ij}) = d_{ij}^{\beta}$
   
 **Use Case - Exploratory Urban Interaction Analysis**
-The unconstrained gravity model is particularly useful in exploratory analyses where no prior knowledge of total flows from origins or to destinations is available. It is commonly applied in early-stage urban studies or simulations to infer potential spatial interaction patterns based solely on population size and accessibility. For instance, it can be used to estimate hypothetical trade volumes or migration intensities between cities in the absence of empirical flow data, assuming that larger cities attract more flows and that distance acts as a frictional constraint. This approach has also been used in cross-national contexts, such as modeling international migration or tourism flows without border-specific data, suggested by (Liu et al., 2014). However, the lack of constraints may limit its predictive accuracy in practical planning scenarios.
+The unconstrained gravity model is particularly useful in exploratory analyses where no prior knowledge of total flows from origins or to destinations is available. It is commonly applied in early-stage urban studies or simulations to infer potential spatial interaction patterns based solely on population size and accessibility. For instance, it can be used to estimate hypothetical trade volumes or migration intensities between cities in the absence of empirical flow data, assuming that larger cities attract more flows and that distance acts as a frictional constraint. This approach has also been used in cross-national contexts, such as modeling international migration or tourism flows without border-specific data, suggested by @liu_uncovering_2014. However, the lack of constraints may limit its predictive accuracy in practical planning scenarios.
   
-### ② Origin-Constrained Gravity Model
+### ii Origin-Constrained Gravity Model
 This model constrains flows to match known total outflows from each origin:
 $$ T_{ij} = O_i \cdot \frac{D_j^\gamma f(c_{ij})}{\sum_j D_j^\gamma f(c_{ij})} \quad (\alpha=1) $$
 where
@@ -666,9 +652,9 @@ thus
 $$ A_i = \frac{1}{\sum_j D_j^\gamma f(c_{ij})} $$
   
 **Use Case - Commuting and Travel Demand Estimation**
-The origin-constrained model is most suitable when total flows from each origin like residential zone are known but their distribution among destinations is unknown. A prominent application is in commuting flow estimation, where the number of workers living in each neighborhood is given, but their specific job locations must be inferred based on job densities and travel costs. Transportation planners frequently employ this model to forecast travel demand from suburbs into urban cores, particularly in developing cities where detailed employment destination data may be lacking. It has also been adopted in health accessibility studies to evaluate patient flows from homes to medical facilities while holding origin population fixed (Wilson, 1971).
+The origin-constrained model is most suitable when total flows from each origin like residential zone are known but their distribution among destinations is unknown. A prominent application is in commuting flow estimation, where the number of workers living in each neighborhood is given, but their specific job locations must be inferred based on job densities and travel costs. Transportation planners frequently employ this model to forecast travel demand from suburbs into urban cores, particularly in developing cities where detailed employment destination data may be lacking. It has also been adopted in health accessibility studies to evaluate patient flows from homes to medical facilities while holding origin population fixed (@wilson_family_1971).
   
-### ③ Destination-Constrained Gravity Model
+### iii Destination-Constrained Gravity Model
 This model is symmetrical to the origin-constrained version, ensuring the total inflows to each destination are fixed:
 $$ T_{ij} = D_j \cdot \frac{O_i^\alpha f(c_{ij})}{\sum_i O_i f(c_{ij})} \quad (\gamma=1) $$
 where
@@ -678,9 +664,9 @@ thus
 $$ B_j = \frac{1}{\sum_i O_i^\alpha f(c_{ij})} $$
   
 **Use Case - Facility Access or Service Catchment Modeling**
-When destination capacities or inflow totals are fixed—such as the number of students a school can accept or the maximum number of patients a hospital can serve—the destination-constrained gravity model is appropriate. This model allocates demand across origins based on their relative proximity and population size while ensuring that no destination is overloaded. As indicated by (will, 1986), it is commonly used in health services planning, disaster response logistics, and educational catchment modelling. For example, a regional health department may use this model to estimate how many patients each hospital will receive from different neighborhoods, assuming each hospital has a capped intake capacity and patients prefer closer facilities.
+When destination capacities or inflow totals are fixed—such as the number of students a school can accept or the maximum number of patients a hospital can serve—the destination-constrained gravity model is appropriate. This model allocates demand across origins based on their relative proximity and population size while ensuring that no destination is overloaded. As indicated by @wills_flexible_1986, it is commonly used in health services planning, disaster response logistics, and educational catchment modelling. For example, a regional health department may use this model to estimate how many patients each hospital will receive from different neighborhoods, assuming each hospital has a capped intake capacity and patients prefer closer facilities.
 
-### ④ Doubly Constrained Gravity Model
+### iv Doubly Constrained Gravity Model
 This model imposes constraints on both origins and destinations:
 $$ T_{ij} = A_i B_j O_i D_j f(c_{ij}) \quad (\alpha=\gamma=1) $$ 
 with balancing factors $A_i$ and $B_j$ ensuring the row and column totals match the known origin and destination flows:
@@ -688,7 +674,7 @@ $$ A_i = \frac{1}{\sum_j B_j D_j f(c_{ij})}\quad and \quad B_j = \frac{1}{\sum_i
 This formulation is usually solved iteratively (Furness method) and produces the most accurate fit when both marginals are known.
 
 **Use Case - Transport and Urban Systems Calibration**
-The doubly constrained gravity model is the most data-intensive but also the most accurate among the gravity model family, making it ideal for calibrated modeling in well-studied urban systems. It is used when both the total outflows from each origin and the total inflows to each destination are known, such as in household travel surveys or census-based commuting datasets. This model is widely applied in regional transportation models, logistics routing, and land-use forecasting, particularly in metropolitan areas with reliable OD (origin-destination) matrices. For example, metropolitan planning organizations (MPOs) use this model to simulate peak-hour transit flows between neighborhoods and employment hubs, taking into account actual boarding and alighting totals (Boyce & Williams, 2015). Its iterative balancing procedure ensures that predicted flows match empirical margins closely, making it a standard in transport modeling software.
+The doubly constrained gravity model is the most data-intensive but also the most accurate among the gravity model family, making it ideal for calibrated modeling in well-studied urban systems. It is used when both the total outflows from each origin and the total inflows to each destination are known, such as in household travel surveys or census-based commuting datasets. This model is widely applied in regional transportation models, logistics routing, and land-use forecasting, particularly in metropolitan areas with reliable OD (origin-destination) matrices. For example, metropolitan planning organizations (MPOs) use this model to simulate peak-hour transit flows between neighborhoods and employment hubs, taking into account actual boarding and alighting totals (@boyce_forecasting_2015). Its iterative balancing procedure ensures that predicted flows match empirical margins closely, making it a standard in transport modeling software.
   
 ### 1.2. Model selection and calibration
 The gravity model posits that the interaction $T_{ij}$ between origin $i$ (population location, in our case, represented by the centroid of OAs) and destination $j$ (supermarket) increases with:
@@ -729,16 +715,6 @@ nodes, edges = ox.graph_to_gdfs(G)
 ```
 
 ```{python}
-# plot the supermarkets according to their size 
-fig, ax = plt.subplots(figsize=(10, 10), facecolor='k')
-area.plot(ax=ax, facecolor='w', alpha=0.1)
-edges.plot(color='w', ax=ax, linewidth=0.5, alpha=0.5)
-retail.plot(color='w', ax=ax, markersize='square_meters', alpha=0.5)
-ax.set_facecolor('k')
-ax.set_title('Retail locations in Havering, London')
-```
-
-```{python}
 retail['nodes'] = ox.nearest_nodes(G, retail['long_wgs'], retail['lat_wgs'])
 ```
 
@@ -758,6 +734,7 @@ oa.plot(ax=ax, facecolor='w', alpha=0.2,edgecolor='violet', linewidth=1)
 edges.plot(color='w', ax=ax, linewidth=0.3, alpha=0.5)
 
 retail.plot(color='cyan', ax=ax, markersize=20)
+retail.plot(color='w', ax=ax, markersize='square_meters', alpha=0.5)
 
 ax.set_facecolor('k')
 ```
@@ -815,11 +792,12 @@ selected_labels = oa_ids
 distance_matrix.columns = list(retail_labels) + selected_labels
 ```
 
-```{python, echo=TRUE}
+```{python}
+#| echo: true
 distance_matrix.loc['E00011326', 'E00011326'] = 1
 distance_matrix.loc['E00011710', 'E00011710'] = 1
 ```
-
+For the two potential areas where supermarkets may be added, the coordinates of the origin and the proposed supermarket location coincide. This results in zero values in the distance matrix, which may cause computational issues. To prevent this, all zero distances are replaced with 1.
 ```{python}
 df_model = distance_matrix.stack().reset_index()
 df_model.columns = ['Origin', 'Destination', 'Distance']
@@ -847,19 +825,25 @@ df_model.drop(columns='id', inplace=True)
 df_model.rename({'square_meters':'Area'}, axis=1, inplace=True)
 ```
 
-```{python, echo=TRUE}
+```{python}
+#| echo: true
 Average_Area = retail_sub['square_meters'].mean()
 
 df_model.loc[df_model['Destination'] == 'E00011326', 'Area'] = Average_Area
 df_model.loc[df_model['Destination'] == 'E00011710', 'Area'] = Average_Area
 ```
-
+Assume that the size of both new supermarkets is the same and corresponds to the mean of all sizes.
 ```{python}
 df_model_transport_increase = df_model.copy()
 ```
 
 ```{python}
 df_model_sub = df_model[(df_model['Destination'] != 'E00011326') & (df_model['Destination'] != 'E00011710')]
+df_model_E00011326 = df_model[df_model['Destination'] != 'E00011710']
+df_model_E00011710 = df_model[df_model['Destination'] != 'E00011326']
+
+df_model_E00011326_ = df_model_E00011326.copy()
+df_model_E00011710_ = df_model_E00011710.copy()
 ```
 
 ```{python}
@@ -913,14 +897,21 @@ check_basic = result_basic[1]
 ```{python}
 check_basic
 ```
-
+For each origin, the total estimated flow to all destinations matches exactly the total flow, which means $\sum_j T_{ij} = O_i$.
+## 2. Scenarios
+  
+### 2.1. Location of new supermarket
+The same model and method as in the previous section are applied here, with the only difference being the distance matrix used. In the following analysis, potential supermarket investment locations will be incorporated into the distance matrix to recalculate $A_i$  respectively, and predict $T_{ij}$ subsequently.
+​  
+Check the origin constrained condition.
+  
 ```{python}
 result_E00011326 = Production_Constrained_Model(df_model_E00011326)
 
 df_model_E00011326 = result_E00011326[0]
 check_E00011326 = result_E00011326[1]
 ```
-
+For E00011326:
 ```{python}
 check_E00011326
 ```
@@ -931,11 +922,11 @@ result_E00011710 = Production_Constrained_Model(df_model_E00011710)
 df_model_E00011710 = result_E00011710[0]
 check_E00011710 = result_E00011710[1]
 ```
-
+For E00011710:
 ```{python}
 check_E00011710
 ```
-
+Finally, we compare the total flow $\sum T_{ij}$ reach these two potential loactions and get the result:
 ```{python}
 # calculate potential customer flow for two supermarket locations
 Flow_E00011326 = round(df_model_E00011326.loc[df_model_E00011326['Destination'] == 'E00011326', 'T_ij'].sum())
@@ -953,11 +944,8 @@ elif Flow_E00011710 > Flow_E00011326:
 else:
     print("Both locations have the same estimated customer count.")
 ```
-
-```{python}
-
-```
-
+  
+### 2.2. Transport increasement
 ```{python}
 def simulate_tij_vs_beta(dfs_with_labels, gamma, beta_range, reference_beta=None):
     """
@@ -1012,13 +1000,24 @@ simulate_tij_vs_beta(dfs_with_labels=[('E00011326', df_model_E00011326_),  ('E00
                      beta_range=np.linspace(0.5, 5.0, 300), 
                      reference_beta=2.2140)
 ```
+The parameter $\beta$ in the gravity model captures how sensitive people are to distance when deciding where to travel—commonly referred to as the distance decay effect. A higher β means that people are more deterred by distance, so closer destinations attract disproportionately more flow. In contrast, a lower β implies weaker distance deterrence, allowing farther destinations to compete more equally (@liu_understanding_2012). In the graph, we observe that as β increases, total flows to both E00011326 and E00011710 rise, but the relative advantage shifts: E00011326 dominates at lower β values, while E00011710 overtakes it at higher β, suggesting the latter benefits more when local flows are emphasized. Assuming a sharp increase in transport efficiency, for instance, better connectivity or reduced travel time, the effective $\beta$ would decrease, reducing the penalty of distance. Under this shift, E00011326 would likely regain its dominance, as more distant flows become viable and its broader appeal can outweigh proximity advantages.
+  
+On the ther hand, When $\beta$ increases, the gravity model applies a stronger penalty to distance, meaning people become more likely to choose nearby destinations and less likely to travel far. In practical terms, as β grows:  
+   - Flows become more localized: distant destinations receive less flow, while nearby destinations gain a larger share.  
+   - The influence of destination attractiveness (e.g., size or services) is suppressed by distance.  
+   - The spatial interaction pattern becomes more fragmented, favoring dense clusters or locally dominant areas.  
+  
+In the graph, as $\beta$ increases, both destinations receive more flow—but E00011710 eventually surpasses E00011326 at $\beta≈3.8$. This suggests that E00011710 is more locally accessible or surrounded by denser origins, and thus benefits more in a high-β scenario. Conversely, E00011326 likely draws from a broader spatial base, which gets suppressed as β rises.
+  
+If $\beta$ continues to grow, the system may converge toward a pattern where only the closest and most immediate destinations dominate, regardless of their absolute attractiveness—reflecting a highly frictional spatial system with limited mobility.
 
+### 2.3. Extra - 15 min Circle
 ```{python}
 oa = pd.merge(oa, pop_sub, left_on='OA21CD', right_on='geography code', how='left')
 oa.drop(columns='geography code', inplace=True)
 oa.rename({'Residence type: Total; measures: Value': 'Population'}, axis=1, inplace=True)
 ```
-
+We evaluate pedestrian accessibility to retail locations within a 15-minute walking distance for each Output Area (OA). Assuming a walking speed of **72** meters per minute, we define a walk radius of 1,080 meters. For each OA, we use a street network graph ($G$) to generate an ego subgraph representing all nodes reachable within that distance. We Then check whether any retail locations, identified by their `osmid`, fall within this reachable area. The results are compiled into a DataFrame indicating whether each OA has access to at least one retail node, along with its population. Finally, we summarize the total number of OAs, those with access, and the covered and uncovered populations:
 ```{python}
 # set walking parameters
 walk_speed_m_per_min = 72
@@ -1061,7 +1060,9 @@ summary = {
     "Uncovered population": access_df.loc[~access_df['accessible'], 'population'].sum()
 }
 
-print(pd.DataFrame.from_dict(summary, orient='index', columns=['Value']))
+summary = pd.DataFrame.from_dict(summary, orient='index', columns=['Value'])
+
+summary
 ```
 
 ```{python}
@@ -1069,7 +1070,7 @@ oa_15min = pd.merge(oa, access_df, on='OA21CD', how='left')
 
 oa_15min = oa_15min[oa_15min['accessible'] == True]
 ```
-
+The OAs that can walk to a supermarket within 15 minutes is shown in the figure below.
 ```{python}
 fig, ax = plt.subplots(figsize=(10, 10), facecolor='k')
 
@@ -1091,3 +1092,12 @@ ax.axis('off')
 
 plt.show()
 ```
+  
+  
+  
+  
+Due to space limitations, some parts of the code have been omitted, or may not be fully rendered in the PDF. The complete code can be found [here](https://github.com/wbwhaha/UrbanSimulation_Assignment)(in the 'Code' folder, including all the qmd, ipynb and pdf files).
+
+{{< pagebreak >}}
+
+## References
